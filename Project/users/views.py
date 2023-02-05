@@ -3,6 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from .serializers import UserSerializer
 from .models import User
+from core.permissions import UsersAccessRight
 
 
 class UserApiView(viewsets.ModelViewSet):
@@ -21,7 +22,7 @@ class UserApiView(viewsets.ModelViewSet):
     """
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, UsersAccessRight )
 
     def get_queryset(self):
         # if user = SuperUser of is in Management Group, show all users
