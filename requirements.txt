@@ -9,3 +9,4 @@ sqlparse==0.4.3
 wheel==0.38.4
 djangorestframework-simplejwt==5.2.2
 drf-nested-routers==0.93.4
+python-decouple==3.7
