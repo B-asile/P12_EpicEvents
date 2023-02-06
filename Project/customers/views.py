@@ -70,13 +70,15 @@ class CustomerApiView(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         if self.request.user.groups.filter(name="sales").exists():
             log_request(self.request)
-            serializer.save(sales_contact=self.request.user)
+            new_customer = serializer.save(sales_contact=self.request.user)
+            new_customer.save()
 
     # Over-write request.user on field sales_contact because user could change this field
     def perform_update(self, serializer):
         if self.request.user.groups.filter(name="sales").exists():
             log_request(self.request)
-            serializer.save(sales_contact=self.request.user)
+            update_customer = serializer.save(sales_contact=self.request.user)
+            update_customer.save()
 
     def list(self, request, *args, **kwargs):
         log_request(request)
