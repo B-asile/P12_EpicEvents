@@ -11,11 +11,7 @@ class Customer(models.Model):
     contact_job = models.CharField(max_length=1024)
     contact_email = models.EmailField(unique=True)
     comments = models.TextField(blank=True)
-    sales_contact = models.ForeignKey(
-        User,
-        on_delete=models.RESTRICT,
-        related_name='contract_sales_contact',
-    )
+    sales_contact = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customer_sales_contact')
 
     def __str__(self):
         return self.company_name

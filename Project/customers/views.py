@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from .models import Customer
 from .serializers import CustomerSerializers
 from core.permissions import SecurityGroupCustomers
-
+from core.logger import log_request
 
 class CustomerApiView(viewsets.ModelViewSet):
     """
@@ -31,36 +31,69 @@ class CustomerApiView(viewsets.ModelViewSet):
     search_fields = ['company_name', 'address', 'contact_name', 'contact_phone', 'contact_job',
                      'contact_email', 'comments']
 
+    @action(detail=False, methods=['GET'])
     def potential_customer(self, request, **kwargs):
         queryset = self.get_queryset().filter(transformed=False)
         serializer = CustomerSerializers(queryset, many=True, context={'request': request})
+        log_request(request)
         return Response(serializer.data)
 
+    @action(detail=False, methods=['GET'])
     def transformed_customer(self, request, **kwargs):
         queryset = self.get_queryset().filter(transformed=True)
         serializer = CustomerSerializers(queryset, many=True, context={'request': request})
+        log_request(request)
         return Response(serializer.data)
 
+    @action(detail=False, methods=['GET'])
     def my_own_customers(self, request, **kwargs):
         queryset = self.get_queryset().filter(sales_contact=self.request.user)
         serializer = CustomerSerializers(queryset, many=True, context={'request': request})
+        log_request(request)
         return Response(serializer.data)
 
+    @action(detail=False, methods=['GET'])
     def my_own_customers_potential(self, request, **kwargs):
         queryset = self.get_queryset().filter(sales_contact=self.request.user, transformed=False)
         serializer = CustomerSerializers(queryset, many=True, context={'request': request})
+        log_request(request)
         return Response(serializer.data)
 
+    @action(detail=False, methods=['GET'])
     def my_own_customers_transformed(self, request, **kwargs):
         queryset = self.get_queryset().filter(sales_contact=self.request.user, transformed=True)
         serializer = CustomerSerializers(queryset, many=True, context={'request': request})
+        log_request(request)
         return Response(serializer.data)
 
+    # Over-write request.user on field sales_contact
     def perform_create(self, serializer):
         if self.request.user.groups.filter(name="sales").exists():
+            log_request(self.request)
             serializer.save(sales_contact=self.request.user)
 
+    # Over-write request.user on field sales_contact because user could change this field
     def perform_update(self, serializer):
         if self.request.user.groups.filter(name="sales").exists():
+            log_request(self.request)
             serializer.save(sales_contact=self.request.user)
 
+    def list(self, request, *args, **kwargs):
+        log_request(request)
+        return super().list(request, *args, **kwargs)
+
+    def retrieve(self, request, *args, **kwargs):
+        log_request(request)
+        return super().retrieve(request, *args, **kwargs)
+
+    def create(self, request, *args, **kwargs):
+        log_request(request)
+        return super().create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        log_request(request)
+        return super().update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        log_request(request)
+        return super().destroy(request, *args, **kwargs)

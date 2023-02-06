@@ -10,6 +10,8 @@ class CustomerSerializers(serializers.ModelSerializer):
         model = Customer
         fields = '__all__'
 
+        extra_kwargs = {'transformed': {'read_only': True}}
+
     def validate(self, data):
         # Validate Phone number format
         phone_num = data.get('contact_phone')
