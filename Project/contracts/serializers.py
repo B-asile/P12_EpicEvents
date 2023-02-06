@@ -8,4 +8,6 @@ class ContractSerializers(serializers.ModelSerializer):
         model = Contract
         fields = "__all__"
 
-        extra_kwargs = {'sales_contact': {'read_only': True}}
+        extra_kwargs = {
+            'date_created': {'read_only': True}
+        }

@@ -14,7 +14,7 @@ from core.logger import log_request
 
 from customers.models import Customer
 from events.models import Event
-
+from rest_framework.exceptions import PermissionDenied
 
 class ContractApiView(viewsets.ModelViewSet):
     """
@@ -43,33 +43,45 @@ class ContractApiView(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def perform_create(self, serializer):
-        # if sales create contracts, push his account in field sales_contact
-        if self.request.user.groups.filter(name="sales").exists():
-            serializer.save(sales_contact=self.request.user, date_create = datetime.now)
-        # Force contract_status to be "open"
-        serializer.validated_data['contract_status'] = 'open'
-        # if contract is create, search company_name and push 'transfomed' = True
-        company_name = self.request.data.get('company_name', None)
-        customer = Customer.objects.filter(company_name=company_name).first()
-        # .first() to obtain just one customer obj
+        # Search company_name requested in Customer list
+        contract_customer_id = self.request.data.get('company_name', None)
+        customer = Customer.objects.filter(id=contract_customer_id).first()
+        # if sales_contact of customer searched == requester name
+        if self.request.user.groups.filter(name='sales').exists():
+            # create contracts, push his account in contract field: sales_contact
+            if str(customer.sales_contact) == str(self.request.user.email) :
+                new_contract = serializer.save(sales_contact=self.request.user,
+                                               date_created = datetime.now().strftime("%Y-%m-%d"),
+                                               contract_status='open')
+                new_contract.save()
+
+        # if requester superadmin or manager
+        if self.request.user.is_superuser or \
+                self.request.user.groups.filter(name='management').exists():
+            new_contract = serializer.save(date_created = datetime.now().strftime("%Y-%m-%d"),
+                                           contract_status='open')
+            new_contract.save()
+        # if contract is create, search company_name(at top of function) and push 'transfomed' = True
         customer.transformed = True
         log_request(self.request)
         customer.save()
 
     def perform_update(self, serializer):
-        if self.request.user.groups.filter(name="sales").exists():
-            serializer.save(sales_contact=self.request.user, date_updated = datetime.now)
+        if self.request.user.groups.filter(name='sales').exists():
+            update_contract = serializer.save(sales_contact=self.request.user,
+                                              date_updated = datetime.now().strftime("%Y-%m-%d"))
+            update_contract.save()
         # if contract_status push to signed, auto create Event
         # Get the contract status from the request data
         contract_status = self.request.data.get('contract_status', None)
         if contract_status == 'signed':
             # Create a new Event object
             event = Event.objects.create(
-                event_name=f"Event for Contract #{self.object.pk}",
+                event_name=f"Event for Contract #{serializer.instance.id}",
                 event_status='open',
-                created_date= datetime.now,
-                company_name=self.object.company_name,
-                sales_contact=self.object.sales_contact,
+                created_date=datetime.now().strftime("%Y-%m-%d"),
+                company_name=serializer.instance.company_name,
+                sales_contact=serializer.instance.sales_contact,
             )
 
             log_request(self.request)
