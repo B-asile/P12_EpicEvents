@@ -52,7 +52,7 @@ class SecurityGroupCustomers(permissions.BasePermission):
         # SuperUser = CRUD
         if request.user.is_superuser:
             logger.info(f"{datetime.now().strftime('%d/%b/%Y %H:%M:%S')} - "
-                        f"User {request.email} is a superuser "
+                        f"User {request.user.email} is a superuser "
                         f"and has full access to {request.method} {view.__class__.__name__}")
             return True
         # Dictionary to manage access by group
