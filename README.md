@@ -9,6 +9,9 @@ Les objectifs étants la création d'un CRM (Customer Relationship Manager) séc
 - PostgreSQL
 - virtual environnement  
 
+#### La configuration par défaut nécessite une base de données PostgreSQL, vous devez l'installer ou modifier la configuration dans `setting.py`.
+#### Dans le cadre de mon évaluation sur ce projet avec OpenClassRooms, vous trouverez dans le dépot de code les fichiers de configurations et d'accès pour la base de données actuelle qui ne devraient pas être en libre accès :  `.env` pour les secrets keys et `docker-compose.yml` configuration du docker.
+
 
 ## Installation
 
@@ -16,9 +19,6 @@ Les objectifs étants la création d'un CRM (Customer Relationship Manager) séc
 2. Créer un environnement virtuel : se rendre à la racine du projet puis effectuer les commandes `python -m venv env` sous windows ou `python3 -m venv env` sous mac ou linux.
 3. Activer l'environnement virtuel avec `env\Scripts\activate` sous windows ou `source env/bin/activate` sous mac ou linux.
 4. Installer les dépendances du projet avec la commande `pip install -r requirement.txt`.
-
-#### La configuration par défaut nécessite une base de données PostgreSQL, vous devez l'installer ou modifier la configuration dans `setting.py`.
-#### Dans le cadre de mon évaluation sur ce projet avec OpenClassRooms, vous trouverez dans le dépot de code les fichiers de configurations et d'accès pour la base de données actuelle `.env` pour les secrets keys et `docker-compose.yml` configuration du docker.
 
 - #### Si vous souhaitez utiliser la Database du depot :
 5. Installez Docker sur la machine host via la page [Docker](https://www.docker.com/).  
@@ -34,4 +34,4 @@ Les objectifs étants la création d'un CRM (Customer Relationship Manager) séc
 
 ## Documentation Postman de l'API:  
 
-Une documentation Postman contenant les détails sur chaques points de terminaisons est disponible via [EpicEvents_documentation_Postman]()
+Une documentation Postman contenant les détails sur chaque point de terminaisons est disponible via [EpicEvents_documentation_Postman]()
