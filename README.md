@@ -2,6 +2,14 @@
 ## Développement d'une architecture back-end sécurisée en utilisant Django ORM  
 Les objectifs étants la création d'un CRM (Customer Relationship Manager) sécurisé intern à l'entreprise EpicEvents.
 
+#### Ce projet utilise les technologies suivantes:  
+- Python v3.x+
+- Django v4.x+
+- Docker
+- PostgreSQL
+- virtual environnement  
+
+
 ## Installation
 
 1. Cloner le depot de code à l'aide de la commande `https://github.com/B-asile/P12_EpicEvents.git` vous pouvez également télécharger le code ent tant qu'archive zip.
@@ -24,3 +32,6 @@ Les objectifs étants la création d'un CRM (Customer Relationship Manager) séc
 8. Créer un admin avec la commande `python manage.py createsuperuser`.  
 9. vous pouvez démarrer le server `python manage.py runserver`.
 
+## Documentation Postman de l'API:  
+
+Une documentation Postman contenant les détails sur chaques points de terminaisons est disponible via [EpicEvents_documentation_Postman]()
