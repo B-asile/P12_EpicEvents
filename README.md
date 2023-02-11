@@ -34,4 +34,4 @@ Les objectifs étant la création d'un CRM (Customer Relationship Manager) sécu
 
 ## Documentation Postman de l'API:  
 
-Une documentation Postman contenant les détails sur chaque point de terminaisons est disponible via [EpicEvents_documentation_Postman](https://www.postman.com/lively-trinity-225265/workspace/epicevents/api/eacc5abd-c537-466c-95d1-b15ebc28cd92?version=a9f00911-352a-4355-9999-b5304cddb663)
+Une documentation Postman contenant les détails sur chaque point de terminaisons est disponible via [EpicEvents_documentation_Postman](https://www.postman.com/lively-trinity-225265/workspace/epicevents/api/cd7850ba-5205-414a-b73c-ef9aee8d2f13)
