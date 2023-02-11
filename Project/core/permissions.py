@@ -129,7 +129,7 @@ class SecurityGroupEvents(permissions.BasePermission):
             return True
         # Dictionary to manage access by group
         groups = {
-            'management': ['GET', 'HEAD', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE'],
+            'management': ['GET', 'HEAD', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'],
             'sales': ['GET', 'HEAD', 'OPTIONS', 'PUT', 'PATCH'],
             'support': ['GET', 'HEAD', 'OPTIONS', 'PUT', 'PATCH'],
         }

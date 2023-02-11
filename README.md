@@ -1,12 +1,12 @@
 # P12_EpicEvents
 ## Développement d'une architecture back-end sécurisée en utilisant Django ORM  
-Les objectifs étants la création d'un CRM (Customer Relationship Manager) sécurisé intern à l'entreprise EpicEvents.
+Les objectifs étant la création d'un CRM (Customer Relationship Manager) sécurisé intern à l'entreprise EpicEvents.
 
 #### Ce projet utilise les technologies suivantes:  
 - Python v3.x+
 - Django v4.x+
 - Docker
-- PostgreSQL
+- PostgreSQL v13.x+
 - virtual environnement  
 
 #### La configuration par défaut nécessite une base de données PostgreSQL, vous devez l'installer ou modifier la configuration dans `setting.py`.
@@ -28,10 +28,10 @@ Les objectifs étants la création d'un CRM (Customer Relationship Manager) séc
 - #### Si vous ne souhaitez utiliser la Database existante :
 5. Configurez `DATABASE`dans `setting.py` en fonction de vos choix.  
 6. Effectuez les migrations avec les commandes `python manage.py makemigrations ` puis `python manage.py migrate`.
-7. Les permissions de l'API on besoins de groupes, vous devez accéder au repertoire `management` via la commande `python manage.py shell`. Une fois que dans l'interpréteur python, éxecutez le script `create_groups.py` via la commande `exec(open("core/management/create_groups.py").read())`, CTRL+d pour quitter.  
+7. Les permissions de l'API ont besoins de groupes, vous devez accéder au repertoire `management` via la commande `python manage.py shell`. Une fois que dans l'interpréteur python, éxecutez le script `create_groups.py` via la commande `exec(open("core/management/create_groups.py").read())`, CTRL+d pour quitter.  
 8. Créer un admin avec la commande `python manage.py createsuperuser`.  
 9. vous pouvez démarrer le server `python manage.py runserver`.
 
 ## Documentation Postman de l'API:  
 
-Une documentation Postman contenant les détails sur chaque point de terminaisons est disponible via [EpicEvents_documentation_Postman]()
+Une documentation Postman contenant les détails sur chaque point de terminaisons est disponible via [EpicEvents_documentation_Postman](https://www.postman.com/lively-trinity-225265/workspace/epicevents/api/eacc5abd-c537-466c-95d1-b15ebc28cd92?version=a9f00911-352a-4355-9999-b5304cddb663)
