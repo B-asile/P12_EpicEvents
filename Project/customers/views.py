@@ -26,10 +26,12 @@ class CustomerApiView(viewsets.ModelViewSet):
         SecurityGroupCustomers
     )
     filter_backends = [DjangoFilterBackend, SearchFilter]
-    filter_fields = ['company_name', 'address', 'contact_name', 'contact_phone', 'contact_job',
-                     'contact_email', 'comments']
-    search_fields = ['company_name', 'address', 'contact_name', 'contact_phone', 'contact_job',
-                     'contact_email', 'comments']
+    filter_fields = ['company_name', 'contact_name', 'contact_email']
+    filterset_fields = {
+        'contact_email': ["exact"],
+        'contact_name': ["exact"],
+        'company_name': ["exact"],
+    }
 
     @action(detail=False, methods=['GET'])
     def potential_customer(self, request, **kwargs):

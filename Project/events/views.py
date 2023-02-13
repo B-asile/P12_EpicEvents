@@ -27,8 +27,12 @@ class EventApiView(viewsets.ModelViewSet):
         SecurityGroupEvents
     )
     filter_backends = [DjangoFilterBackend, SearchFilter]
-    filter_fields = ['event_name', 'event_status', 'start_date', 'end_date', 'attendees', 'description', 'company_name']
-    search_fields = ['event_name', 'event_status', 'start_date', 'end_date', 'attendees', 'description', 'company_name']
+    filter_fields = ['event_date', '^company_name__contact_email', 'company_name']
+    filterset_fields = {
+        'event_date': ["gte", "lte"],
+        'company_name': ["exact"],
+        'company_name__contact_email': ["exact"],
+    }
 
     @action(detail=False, methods=['GET'])
     def my_sales_events(self, request, **kwargs):
