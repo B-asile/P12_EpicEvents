@@ -30,10 +30,8 @@ class ContractApiView(viewsets.ModelViewSet):
         SecurityGroupContracts
     )
     filter_backends = [DjangoFilterBackend, SearchFilter]
-    filter_fields = ['date_create', 'date_updated', 'commitments', 'amount',
-                     'payment_due', 'contract_status', 'company_name', 'sales_contact']
-    search_fields = ['date_create', 'date_updated', 'commitments', 'amount',
-                     'payment_due', 'contract_status', 'company_name', 'sales_contact']
+    filter_fields = ['amount', 'company_name']
+    search_fields = ['amount', 'company_name']
 
     @action(detail=False, methods=['GET'])
     def my_own_contracts(self, request, **kwargs):
